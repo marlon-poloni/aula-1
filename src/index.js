@@ -111,15 +111,11 @@ app.post("/login", jsonParser, (req, res) => {
   const { username, password } = req.body;
   const user = Users.filter((value) => value.username === username).shift();
 
-  if (user) {
-    const cryptPassword = bcrypt.hashSync(password, CRYPT_SALT);
-
-    if (bcrypt.compareSync(cryptPassword, user.password)) {
-      const UserId = findById(user.id);
-      user.logged_in = true;
-      Users[UserId] = user;
-      return res.status(200).send(user);
-    }
+  if (user && bcrypt.compareSync(password, user.password)) {
+    const UserId = findById(user.id);
+    user.logged_in = true;
+    Users[UserId] = user;
+    return res.status(200).send(user);
   }
 
   return res
