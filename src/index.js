@@ -113,9 +113,10 @@ app.post("/login", jsonParser, (req, res) => {
 
   if (user && bcrypt.compareSync(password, user.password)) {
     const UserId = findById(user.id);
-    user.logged_in = true;
-    Users[UserId] = user;
-    return res.status(200).send(user);
+    const LoggedUser = { ...user, logged_in: true };
+
+    Users[UserId] = LoggedUser;
+    return res.status(200).send(LoggedUser);
   }
 
   return res
