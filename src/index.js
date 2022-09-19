@@ -110,13 +110,16 @@ app.delete("/user/:id", (req, res) => {
 app.post("/login", jsonParser, (req, res) => {
   const { username, password } = req.body;
   const user = Users.filter((value) => value.username === username).shift();
-  const cryptPassword = bcrypt.hashSync(password, CRYPT_SALT);
 
-  if (bcrypt.compareSync(cryptPassword, user.password)) {
-    const UserId = findById(user.id);
-    user.logged_in = true;
-    Users[UserId] = user;
-    return res.status(200).send(user);
+  if (user) {
+    const cryptPassword = bcrypt.hashSync(password, CRYPT_SALT);
+
+    if (bcrypt.compareSync(cryptPassword, user.password)) {
+      const UserId = findById(user.id);
+      user.logged_in = true;
+      Users[UserId] = user;
+      return res.status(200).send(user);
+    }
   }
 
   return res
