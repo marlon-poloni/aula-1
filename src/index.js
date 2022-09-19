@@ -137,3 +137,7 @@ http.createServer(app).listen(3000, () => {
  *  Update (atualizar)
  *  Delete (apagar)
  */
+
+// LIÇÃO DE CASA
+
+// IMPLEMENTAR ENDPOINT PARA FAZER O LOGOUT (APAGAR A CHAVE LOGGED_IN DO USUÁRIO) (passar por id o usuário)
